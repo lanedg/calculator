@@ -15,29 +15,47 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+  if (num2 == 0) {
+    return "Error. Cannot divide by zero.";
+  }
   return Math.floor((num1 / num2) * 1000) / 1000;
 }
 
 function addNumToDisplay(event) {
+  if (currentDisplayValue === "Error. Cannot divide by zero.") {
+    display.textContent = "";
+    currentDisplayValue = display.textContent;
+  }
   display.textContent = currentDisplayValue + event.target.textContent;
   currentDisplayValue = display.textContent;
 }
 
 function addOperatorToDisplay(event) {
+  if (currentDisplayValue === "Error. Cannot divide by zero.") {
+    display.textContent = "";
+    currentDisplayValue = display.textContent;
+  }
+
+  displayArray = currentDisplayValue.split(" ");
+  if (displayArray[0] == "") {
+    return;
+  }
   if (
     currentDisplayValue.includes("+") ||
     currentDisplayValue.includes("-") ||
     currentDisplayValue.includes("×") ||
     currentDisplayValue.includes("÷")
   ) {
-    let worked = operate();
-    if (!worked) {
-      return;
+    if (displayArray[2] === "") {
+      display.textContent =
+        displayArray[0] + " " + event.target.textContent + " ";
+      currentDisplayValue = display.textContent;
     }
+  } else {
+    display.textContent =
+      currentDisplayValue + " " + event.target.textContent + " ";
+    currentDisplayValue = display.textContent;
   }
-  display.textContent =
-    currentDisplayValue + " " + event.target.textContent + " ";
-  currentDisplayValue = display.textContent;
 }
 
 function operate() {
@@ -69,6 +87,9 @@ function operate() {
 
 function equals() {
   let currentDisplayArray = currentDisplayValue.split(" ");
+  if (currentDisplayArray[2] === "") {
+    return;
+  }
   operate();
 }
 
