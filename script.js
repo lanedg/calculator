@@ -18,20 +18,6 @@ function divide(num1, num2) {
   return num1 / num2;
 }
 
-function operate(operator, num1, num2) {
-  if (operator === "+") {
-    return add(num1, num2);
-  } else if (operator === "-") {
-    return subtract(num1, num2);
-  } else if (operator === "*") {
-    return multiply(num1, num2);
-  } else if (operator === "/") {
-    return divide(num1, num2);
-  } else {
-    return "error";
-  }
-}
-
 function addNumToDisplay(event) {
   display.textContent = currentDisplayValue + event.target.textContent;
   currentDisplayValue = display.textContent;
@@ -44,7 +30,10 @@ function addOperatorToDisplay(event) {
     currentDisplayValue.includes("×") ||
     currentDisplayValue.includes("÷")
   ) {
-    operate();
+    let worked = operate();
+    if (!worked) {
+      return;
+    }
   }
   display.textContent =
     currentDisplayValue + " " + event.target.textContent + " ";
@@ -55,8 +44,8 @@ function operate() {
   let operationArray = currentDisplayValue.split(" ");
 
   [num1, operator, num2] = operationArray;
-  num1 = parseInt(num1);
-  num2 = parseInt(num2);
+  num1 = parseFloat(num1);
+  num2 = parseFloat(num2);
 
   switch (operator) {
     case "+":
@@ -73,9 +62,14 @@ function operate() {
       break;
     case "÷":
       display.textContent = divide(num1, num2);
-      currentDispalyValue = display.textContent;
+      currentDisplayValue = display.textContent;
       break;
   }
+}
+
+function equals() {
+  let currentDisplayArray = currentDisplayValue.split(" ");
+  operate();
 }
 
 function addNumberListeners() {
@@ -99,7 +93,14 @@ function addOperatorListeners() {
   let divideButton = document.querySelector("#divide");
   divideButton.addEventListener("click", addOperatorToDisplay);
 
-  let equalButton = document.querySelector("equals");
+  let equalButton = document.querySelector("#equals");
+  equalButton.addEventListener("click", equals);
+
+  let clearButton = document.querySelector("#clear");
+  clearButton.addEventListener("click", () => {
+    display.textContent = "";
+    currentDisplayValue = display.textContent;
+  });
 }
 
 addNumberListeners();
