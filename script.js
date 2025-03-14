@@ -11,14 +11,15 @@ function subtract(num1, num2) {
 }
 
 function multiply(num1, num2) {
-  return num1 * num2;
+  return Math.floor(num1 * num2 * 100000) / 100000;
 }
 
 function divide(num1, num2) {
-  if (num2 == 0) {
+  if (num2 === 0) {
     return "Error. Cannot divide by zero.";
   }
-  return Math.floor((num1 / num2) * 1000) / 1000;
+  console.log(Math.floor((num1 / num2) * 100000) / 100000);
+  return Math.floor((num1 / num2) * 100000) / 100000;
 }
 
 function addNumToDisplay(event) {
@@ -35,16 +36,16 @@ function addOperatorToDisplay(event) {
     display.textContent = "";
     currentDisplayValue = display.textContent;
   }
-
   displayArray = currentDisplayValue.split(" ");
-  if (displayArray[0] == "") {
+
+  if (displayArray[0] === "") {
     return;
   }
   if (
-    currentDisplayValue.includes("+") ||
-    currentDisplayValue.includes("-") ||
-    currentDisplayValue.includes("×") ||
-    currentDisplayValue.includes("÷")
+    displayArray[1] === "+" ||
+    displayArray[1] === "-" ||
+    displayArray[1] === "×" ||
+    displayArray[1] === "÷"
   ) {
     if (displayArray[2] === "") {
       display.textContent =
