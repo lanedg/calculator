@@ -15,7 +15,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-  return num1 / num2;
+  return Math.floor((num1 / num2) * 1000) / 1000;
 }
 
 function addNumToDisplay(event) {
@@ -74,7 +74,7 @@ function equals() {
 
 function addNumberListeners() {
   let buttons = document.querySelector("#buttons");
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 0; i <= 9; i++) {
     const currentButton = buttons.querySelector(`#button${i}`);
     currentButton.addEventListener("click", addNumToDisplay);
   }
