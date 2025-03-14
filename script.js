@@ -3,23 +3,22 @@ let currentDisplayValue = "";
 let display = document.querySelector("#display");
 
 function add(num1, num2) {
-  return num1 + num2;
+  return Math.floor((num1 + num2) * 100) / 100;
 }
 
 function subtract(num1, num2) {
-  return num1 - num2;
+  return Math.floor((num1 - num2) * 100) / 100;
 }
 
 function multiply(num1, num2) {
-  return Math.floor(num1 * num2 * 100000) / 100000;
+  return Math.floor(num1 * num2 * 100) / 100;
 }
 
 function divide(num1, num2) {
   if (num2 === 0) {
     return "Error. Cannot divide by zero.";
   }
-  console.log(Math.floor((num1 / num2) * 100000) / 100000);
-  return Math.floor((num1 / num2) * 100000) / 100000;
+  return Math.floor((num1 / num2) * 100) / 100;
 }
 
 function addNumToDisplay(event) {
